@@ -1,0 +1,217 @@
+<!-- 
+    ========== README ============
+
+    Hi. Below is something I wrote to convert a CSV file into JSON.
+
+    Please open this file in a web browser, and upload the data.csv file to see it in action.
+
+    Once you've added the file, it will download two .json files, and also log their output in the browser console (press F12 to view) 
+
+    It would be cool if you could convert some/all of this into a similar Python function.
+
+    I have added comments below to help you understand what's happening. 
+
+    The first few things are very specific to a web browser solution so you can largely ignore them, 
+    the part we want converting is titled "THE MAIN PART", although it's useful to read through the other parts anyway.
+
+    Any questions please email me on greg.ellis@resulting-it.com 
+-->
+
+
+
+
+<!-- 
+    We need to be able to access the CSV file.
+    In javascript we can do this via using the browser as a UI and adding the input element below. 
+    The 'a' element is just for us to trigger the download later, you will not have either in Python.
+    (In python you may need to have the CSV somewhere it can locate, i.e. on the same server, or a public url etc)
+
+--> 
+<input type="file" id="files"> 
+<a href="#" id="downloadAnchorElem">
+ 
+<!--
+    We then need to convert each line in the CSV to a JavaScript object.
+    Fortunately there's an existing javascript library which handles this for us, so we will include that here to use later.
+    (In python you may write a csv to object function, or find an existing library to use)
+--> 
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.2/jquery.csv.min.js"></script>
+
+
+ 
+
+<script> 
+/**
+ * 
+ *  You can largely ignore this first function because it is very specific to a javascript/browser solution.
+ *  
+ *  You may need something similar in Python to initiate the other function running but it would not be similar at all.
+ *
+ *  I will explain what this does anyway:
+ * 
+ *  1. It detects the input field being changed (when you add a csv to it)
+ *  2. It runs the "csv to objects" function on the CSV file, so that we now have an array of objects to work with
+ *  3. It passes those objects to the main function, which is what you'll be re-writing :)
+ * 
+ **/
+function handleFileSelect(evt) {
+  var files = evt.target.files; // FileList object
+  var file = files[0];
+  var reader = new FileReader();
+  reader.readAsText(file);
+  reader.onload = function(event){
+    var csv = event.target.result;
+    objects = $.csv.toObjects(csv);
+    // console.log(objects);
+    csvObjectsToCollections(objects);
+  } 
+  reader.onerror = function(){ 
+    alert('Unable to read ' + file.fileName); 
+  }
+}  
+$(document).ready(function() { 
+    $('#files').bind('change', handleFileSelect); 
+});
+ 
+
+
+/**
+ * 
+ *  THE MAIN PART
+ * 
+ *  Well done, you've read this far! 
+ * 
+ *  This is the main function which we would like a python version of.
+ * 
+ *  1. It takes the array of objects that we get from the first function
+ *  2. It loops through those objects, and for each of their properties creates a 'node'
+ *  3. If the object has multiple properties, it also creates an 'edge' between those nodes
+ * 
+ *  The object we will loop through
+ *  {Level1: A, Level2: B}
+ * 
+ *  Create this 'nodes' json:
+ *  [{name: A},{name: B}]
+ *  
+ *  And create this 'edge' json:
+ *  [{from: A, to: B}]
+ * 
+ *  The rows in the test file you are uploading has 5 levels, {Level1: A, Level2: B, Level3: C, Level4: D, Level5: E}
+ * 
+ *  So in our loop, we check for upto 5 levels of nodes.
+ *
+ */
+
+function csvObjectsToCollections(objects){
+
+  // If you're debugging in a browser, press F12 to view these console.logs
+  
+  // Show me the objects we passed to this function to check they're correct...
+  console.log("Show me the objects we passed to this function to check they're correct...");
+  console.log('It should look like: {Level1: "A", Level2: "B", Level3: "C", Level4: "D", Level5: "E"}');
+  console.log(objects);
+
+  
+  // Create an empty array to hold the nodes and edges we're creating
+  nodes = [];
+  edges = [];
+ 
+ 
+  // For each of these objects
+  $(objects).each(function(index,item){ 
+      
+
+    // Check if level 5 and 4 exist, if so create objects and an edge
+    if( item.Level5.length > 0 ){
+      var level_5_object = {}; 
+      level_5_object.name = item.Level5; 
+      nodes.push(level_5_object);
+    }   
+    if( item.Level4.length > 0 ){
+      var level_4_object = {}; 
+      level_4_object.name = item.Level4;  
+      nodes.push(level_4_object);
+    }  
+    if( item.Level4.length > 0 && item.Level5.length > 0 ){
+      var edge_4_to_5 = {}; 
+      edge_4_to_5.from = item.Level4;
+      edge_4_to_5.to = item.Level5; 
+      edges.push(edge_4_to_5);
+    } 
+
+    // The above section then just repeats for the following levels down to 1
+    if( item.Level3.length > 0 ){
+      var level_3_object = {}; 
+      level_3_object.name = item.Level3;  
+      nodes.push(level_3_object);
+    } 
+    if( item.Level3.length > 0 && item.Level4.length > 0 ){
+      var edge_3_to_4 = {}; 
+      edge_3_to_4.from = item.Level3;
+      edge_3_to_4.to = item.Level4; 
+      edges.push(edge_3_to_4);
+    } 
+    if( item.Level2.length > 0 ){
+      var level_2_object = {}; 
+      level_2_object.name = item.Level2;  
+      nodes.push(level_2_object);
+    } 
+    if( item.Level2.length > 0 && item.Level3.length > 0 ){
+      var edge_2_to_3 = {}; 
+      edge_2_to_3.from = item.Level2;
+      edge_2_to_3.to = item.Level3; 
+      edges.push(edge_2_to_3);
+    } 
+    if( item.Level1.length > 0 ){
+      var level_1_object = {}; 
+      level_1_object.name = item.Level1;  
+      nodes.push(level_1_object); 
+    } 
+    if( item.Level1.length > 0 && item.Level2.length > 0 ){
+      var edge_1_to_2 = {}; 
+      edge_1_to_2.from = item.Level1;
+      edge_1_to_2.to = item.Level2; 
+      edges.push(edge_1_to_2); 
+    }
+
+  });
+
+  // Let's check it's worked and we have our nodes and edges...
+  console.log("Let's check it's worked and we have our nodes and edges...");
+  console.log('The nodes should look like: [{name: "E"},{name: "D"}]');  
+  console.log("Nodes:");
+  console.log(nodes);
+  console.log('and the edges should look like: [{from: "D", to: "E"}]'); 
+  console.log("Edges:");
+  console.log(edges);
+  
+
+  /**
+   * 
+   * CREATE FILENAME BASED ON CURRENT TIME, AND EXPORT
+   * 
+   * This part again will be very different in Python. So you won't directly convert this.
+   * 
+   * It gets the time, and downloads the json files in the browser.
+   * 
+   * The only equivalent thing you need to do in Python, is put the previously created nodes and edges into a json file,
+   * or simply save it somewhere.
+   *
+   */
+   var ts = Math.round((new Date()).getTime() / 1000);
+   var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(nodes));
+   var dlAnchorElem = document.getElementById('downloadAnchorElem');
+   dlAnchorElem.setAttribute("href",     dataStr     );
+   dlAnchorElem.setAttribute("download", ts+"_nodes_collection.json");
+   dlAnchorElem.click(); 
+   var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(edges));
+   var dlAnchorElem = document.getElementById('downloadAnchorElem');
+   dlAnchorElem.setAttribute("href",     dataStr     );
+   dlAnchorElem.setAttribute("download", ts+"_edges_collection.json");
+   dlAnchorElem.click(); 
+
+}
+
+ 
+ </script>
