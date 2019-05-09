@@ -1,14 +1,11 @@
-#!/usr/bin/python
+
 import csv , json, time
 from collections import OrderedDict
 
-currentTime= round(time.time(),0)
-print(currentTime)
+
 csvFilePath = "data.csv"
 jsonFilePath = "data.json"
-nodesFilePath = "{}nodes.json".format(currentTime)
-# nodesFilePath = "{}nodes.json".format(currentTime)
-edgesFilePath = "edges.json"
+
 arr = []
 #read the csv and add the arr to a arrayn
 
@@ -66,8 +63,8 @@ def csvObjectsToCollections(obj):
 
         if( items.get("Level3") and items.get("Level4")):
             edge_3_to_4 = OrderedDict();            
-            edge_3_to_4["from"] = items.get("Level4")
-            edge_3_to_4["to"] = items.get("Level5")
+            edge_3_to_4["from"] = items.get("Level3")
+            edge_3_to_4["to"] = items.get("Level4")
             edges.append(edge_3_to_4)
 
         if( items.get("Level2") and items.get("Level3")):
@@ -86,6 +83,20 @@ def csvObjectsToCollections(obj):
         
     # print(nodes)
     # print(edges)
+    print("Let's check it's worked and we have our nodes and edges...")
+    print('The nodes should look like: [{name: "E"},{name: "D"}]')
+    print("Nodes:")
+    print(nodes)
+    print('and the edges should look like: [{from: "D", to: "E"}]')
+    print("Edges:")
+    print(edges)
+
+    currentTime= int(round(time.time(),0))
+    print(currentTime)
+
+    nodesFilePath = "{}_nodes_collection.json".format(currentTime)
+    edgesFilePath = "{}_edges_collection.json".format(currentTime)
+
 
     with open(nodesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(nodes))
