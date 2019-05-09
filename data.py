@@ -7,7 +7,7 @@ csvFilePath = "data.csv"
 jsonFilePath = "data.json"
 
 arr = []
-#read the csv and add the arr to a arrayn
+#read the csv and add the arr
 
 with open (csvFilePath) as csvFile:
     csvReader = csv.DictReader(csvFile)
@@ -19,8 +19,9 @@ with open (csvFilePath) as csvFile:
 
 # write the data to a json file
 with open(jsonFilePath, "w") as jsonFile:
-    jsonFile.write(json.dumps(arr, indent = 1))
+    jsonFile.write(json.dumps(arr, indent = 1)
 
+# -------------------------------------------------------------------
 def csvObjectsToCollections(obj):
     print("Show me the objects we passed to this function to check they're correct...")
     print('It should look like: {Level1: "A", Level2: "B", Level3: "C", Level4: "D", Level5: "E"}')
@@ -30,30 +31,31 @@ def csvObjectsToCollections(obj):
     edges = []
 
     for items in obj:
+        # 
         if (items.get("Level5")):
             level_5_object = {}
             level_5_object["name"] = items.get("Level5") 
             nodes.append(level_5_object)
 
         if (items.get("Level4")):
-            level_5_object = {}
-            level_5_object["name"] = items.get("Level4") 
-            nodes.append(level_5_object)
+            level_4_object = {}
+            level_4_object["name"] = items.get("Level4") 
+            nodes.append(level_4_object)
         
         if (items.get("Level3")):
-            level_5_object = {}
-            level_5_object["name"] = items.get("Level3") 
-            nodes.append(level_5_object)
+            level_3_object = {}
+            level_3_object["name"] = items.get("Level3") 
+            nodes.append(level_3_object)
         
         if (items.get("Level2")):
-            level_5_object = {}
-            level_5_object["name"] = items.get("Level2") 
-            nodes.append(level_5_object)
+            level_2_object = {}
+            level_2_object["name"] = items.get("Level2") 
+            nodes.append(level_2_object)
         
         if (items.get("Level1")):
-            level_5_object = {}
-            level_5_object["name"] = items.get("Level1") 
-            nodes.append(level_5_object)
+            level_1_object = {}
+            level_1_object["name"] = items.get("Level1") 
+            nodes.append(level_1_object)
 
         if( items.get("Level4") and items.get("Level5")):
             edge_4_to_5 = OrderedDict();            
@@ -81,8 +83,7 @@ def csvObjectsToCollections(obj):
     
 
         
-    # print(nodes)
-    # print(edges)
+    
     print("Let's check it's worked and we have our nodes and edges...")
     print('The nodes should look like: [{name: "E"},{name: "D"}]')
     print("Nodes:")
@@ -91,17 +92,20 @@ def csvObjectsToCollections(obj):
     print("Edges:")
     print(edges)
 
+    # get current time for the file name
     currentTime= int(round(time.time(),0))
     print(currentTime)
-
+    
+    # create file name path
     nodesFilePath = "{}_nodes_collection.json".format(currentTime)
     edgesFilePath = "{}_edges_collection.json".format(currentTime)
 
-
+    # write to a new json file with time stamp
     with open(nodesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(nodes))
 
     with open(edgesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(edges))
+
 
 csvObjectsToCollections(arr)
