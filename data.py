@@ -1,13 +1,13 @@
 
 import csv , json, time
 from collections import OrderedDict
-
+    # OrderDict for a atructure dict , otherwise showing as "to": then "from":
 
 csvFilePath = "data.csv"
 jsonFilePath = "data.json"
 
 arr = []
-#read the csv and add the arr
+    #read the csv and add the arr
 
 with open (csvFilePath) as csvFile:
     csvReader = csv.DictReader(csvFile)
@@ -15,13 +15,12 @@ with open (csvFilePath) as csvFile:
     for csvRow in csvReader:
         arr.append(csvRow)
 
-# print(arr)
 
-# write the data to a json file
+    # write the data to a json file
 with open(jsonFilePath, "w") as jsonFile:
     jsonFile.write(json.dumps(arr, indent = 1)
 
-# -------------------------------------------------------------------
+    #----------------main funtion----------------------------------
 def csvObjectsToCollections(obj):
     print("Show me the objects we passed to this function to check they're correct...")
     print('It should look like: {Level1: "A", Level2: "B", Level3: "C", Level4: "D", Level5: "E"}')
@@ -31,7 +30,7 @@ def csvObjectsToCollections(obj):
     edges = []
 
     for items in obj:
-        # 
+        # put all Level5 to nodes ... then Level4, Level3 etc
         if (items.get("Level5")):
             level_5_object = {}
             level_5_object["name"] = items.get("Level5") 
@@ -56,7 +55,8 @@ def csvObjectsToCollections(obj):
             level_1_object = {}
             level_1_object["name"] = items.get("Level1") 
             nodes.append(level_1_object)
-
+        
+        # append 4-5 relationship to edges.. then 3-4, 2-3,etc
         if( items.get("Level4") and items.get("Level5")):
             edge_4_to_5 = OrderedDict();            
             edge_4_to_5["from"] = items.get("Level4")
@@ -82,8 +82,6 @@ def csvObjectsToCollections(obj):
             edges.append(edge_1_to_2)
     
 
-        
-    
     print("Let's check it's worked and we have our nodes and edges...")
     print('The nodes should look like: [{name: "E"},{name: "D"}]')
     print("Nodes:")
@@ -107,5 +105,5 @@ def csvObjectsToCollections(obj):
     with open(edgesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(edges))
 
-
+# run funtion - * to be added to button
 csvObjectsToCollections(arr)
