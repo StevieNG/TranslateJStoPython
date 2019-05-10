@@ -1,19 +1,13 @@
 #!/usr/bin/python
 import csv , json, time
 from collections import OrderedDict
-<<<<<<< HEAD
+
     # OrderDict for a atructure dict , otherwise showing as "to": then "from":
 
-<<<<<<< HEAD
-=======
 
 currentTime= round(time.time(),0)
 print(currentTime)
->>>>>>> parent of 4d6a7f4... update time function for file name
-=======
-currentTime= round(time.time(),0)
-print(currentTime)
->>>>>>> parent of 4d6a7f4... update time function for file name
+
 csvFilePath = "data.csv"
 jsonFilePath = "data.json"
 nodesFilePath = "{}nodes.json".format(currentTime)
