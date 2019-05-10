@@ -4,14 +4,11 @@ from collections import OrderedDict
 
     # OrderDict for a atructure dict , otherwise showing as "to": then "from":
 
+csvFilePath= raw_input("Enter the CSV file you want to convert:(data.csv as demo)")
+#   raw_input for python2.7,  input if using python3+ 
+#   user input for file name it was originally hardcoded as: 
+#       csvFilePath = "data.csv" 
 
-currentTime= round(time.time(),0)
-print(currentTime)
-
-csvFilePath = "data.csv"
-jsonFilePath = "data.json"
-
-edgesFilePath = "edges.json"
 arr = []
     #read the csv and add the arr
 
@@ -21,7 +18,7 @@ with open (csvFilePath) as csvFile:
     for csvRow in csvReader:
         arr.append(csvRow)
 
-
+jsonFilePath = "data.json"
     # write the data to a json file
 with open(jsonFilePath, "w") as jsonFile:
     jsonFile.write(json.dumps(arr, indent = 1))
@@ -99,7 +96,7 @@ def csvObjectsToCollections(obj):
 
     # get current time for the file name
     currentTime= int(round(time.time(),0))
-    print(currentTime)
+    # print(currentTime)
     
     # create file name path
     nodesFilePath = "{}_nodes_collection.json".format(currentTime)
@@ -107,14 +104,11 @@ def csvObjectsToCollections(obj):
 
     # write to a new json file with time stamp
 
-    # print(nodes)
-    # print(edges)
-
     with open(nodesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(nodes))
 
     with open(edgesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(edges))
 
-# run funtion - * to be added to button
+# run funtion - * to be added to button on html
 csvObjectsToCollections(arr)
