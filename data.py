@@ -4,8 +4,13 @@ from collections import OrderedDict
 <<<<<<< HEAD
     # OrderDict for a atructure dict , otherwise showing as "to": then "from":
 
+<<<<<<< HEAD
 =======
 
+currentTime= round(time.time(),0)
+print(currentTime)
+>>>>>>> parent of 4d6a7f4... update time function for file name
+=======
 currentTime= round(time.time(),0)
 print(currentTime)
 >>>>>>> parent of 4d6a7f4... update time function for file name
@@ -91,6 +96,7 @@ def csvObjectsToCollections(obj):
     
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     print("Let's check it's worked and we have our nodes and edges...")
     print('The nodes should look like: [{name: "E"},{name: "D"}]')
     print("Nodes:")
@@ -109,6 +115,8 @@ def csvObjectsToCollections(obj):
 
     # write to a new json file with time stamp
 =======
+=======
+>>>>>>> parent of 4d6a7f4... update time function for file name
         
     # print(nodes)
     # print(edges)
