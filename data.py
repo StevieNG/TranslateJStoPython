@@ -10,8 +10,7 @@ print(currentTime)
 
 csvFilePath = "data.csv"
 jsonFilePath = "data.json"
-nodesFilePath = "{}nodes.json".format(currentTime)
-# nodesFilePath = "{}nodes.json".format(currentTime)
+
 edgesFilePath = "edges.json"
 arr = []
     #read the csv and add the arr
@@ -25,7 +24,7 @@ with open (csvFilePath) as csvFile:
 
     # write the data to a json file
 with open(jsonFilePath, "w") as jsonFile:
-    jsonFile.write(json.dumps(arr, indent = 1)
+    jsonFile.write(json.dumps(arr, indent = 1))
 
     #----------------main funtion----------------------------------
 def csvObjectsToCollections(obj):
@@ -89,8 +88,7 @@ def csvObjectsToCollections(obj):
             edges.append(edge_1_to_2)
     
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     print("Let's check it's worked and we have our nodes and edges...")
     print('The nodes should look like: [{name: "E"},{name: "D"}]')
     print("Nodes:")
@@ -108,14 +106,10 @@ def csvObjectsToCollections(obj):
     edgesFilePath = "{}_edges_collection.json".format(currentTime)
 
     # write to a new json file with time stamp
-=======
-=======
->>>>>>> parent of 4d6a7f4... update time function for file name
-        
+
     # print(nodes)
     # print(edges)
 
->>>>>>> parent of 4d6a7f4... update time function for file name
     with open(nodesFilePath, "w") as jsonFile:
         jsonFile.write(json.dumps(nodes))
 
