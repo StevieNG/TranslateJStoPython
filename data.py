@@ -68,8 +68,8 @@ def csvObjectsToCollections(obj):
 
         if( items.get("Level3") and items.get("Level4")):
             edge_3_to_4 = OrderedDict();            
-            edge_3_to_4["from"] = items.get("Level4")
-            edge_3_to_4["to"] = items.get("Level5")
+            edge_3_to_4["from"] = items.get("Level3")
+            edge_3_to_4["to"] = items.get("Level4")
             edges.append(edge_3_to_4)
 
         if( items.get("Level2") and items.get("Level3")):
