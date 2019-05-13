@@ -10,6 +10,7 @@ intitially "data.py" was created as a python shell program to get the main funct
 then "dataFlask.py" was created to use Flask framwork to link the function to an user interface on a html file - "index.html"
 
 **Instruction?  (more like note to self)**
+
 data.py - to be run as $python3 data.py
 
 dataFlask need the Flask framework in a virtual enivirmeint 
