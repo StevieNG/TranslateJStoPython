@@ -10,18 +10,6 @@ app = Flask(__name__)
 def index():
   return render_template('test.html')
 
-@app.route('/my-link/')
-def my_link():
-  print ('I got clicked!')
-
-  return 'Click'
-
-@app.route('/hello/')
-def hello():
-    return 'Hello, World'
-
-    
-
 if __name__ == '__main__':
   app.run(debug=True)
 
@@ -30,7 +18,7 @@ def my_form_post():
     text = request.form['text']
     processed_text = text.upper()
     Clicked(text)
-    return "file converted"
+    return "CSV file: {} converted to json".format(processed_text)
 
 def Clicked(filename):
     csvFilePath= filename
