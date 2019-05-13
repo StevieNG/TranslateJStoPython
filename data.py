@@ -1,4 +1,4 @@
-#!/usr/bin/python
+
 import csv , json, time
 from collections import OrderedDict
 
@@ -85,7 +85,7 @@ def csvObjectsToCollections(obj):
             edges.append(edge_1_to_2)
     
 
-
+    # this is copy from Greg's JS, straight copy and paste
     print("Let's check it's worked and we have our nodes and edges...")
     print('The nodes should look like: [{name: "E"},{name: "D"}]')
     print("Nodes:")
