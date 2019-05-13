@@ -2,9 +2,9 @@
 import csv , json, time
 from collections import OrderedDict
 
-    # OrderDict for a atructure dict , otherwise showing as "to": then "from":
+    # OrderDict for a sturture dict , otherwise showing as "to": then "from":
 
-csvFilePath= raw_input("Enter the CSV file you want to convert:(data.csv as demo)")
+csvFilePath= input("Enter the CSV file you want to convert:(data.csv as demo)")
 #   raw_input for python2.7,  input if using python3+ 
 #   user input for file name it was originally hardcoded as: 
 #       csvFilePath = "data.csv" 
