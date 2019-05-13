@@ -16,10 +16,22 @@ if __name__ == '__main__':
 def my_form_post():
     text = request.form['text']
     processed_text = text.upper()
-    convertCSVtoJSON(text)
-    return "CSV file: {} converted to json".format(processed_text)
+    if not allowed_file(text):
+        return "wrong file type"
+    else:       
+        convertCSVtoJSON(text)
+        return "CSV file: {} converted to json".format(processed_text)
 
 # ---Flask Framework end------
+
+
+# ---fuction to check correct file type---
+ALLOWED_EXTENSIONS = ['csv']
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # ---function to load csv----
 def convertCSVtoJSON(filename):
