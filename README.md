@@ -19,8 +19,13 @@ data.py - to be run as $python3 data.py
 dataFlask need the Flask framework in a virtual enivirmeint 
  
 $python3 -m venv venv
+
 $source venv/bin/activate
+
 $export FLASK_APP=dataFlask.py
+
 $flask run
+
+
 
 $deactivate  to stop
