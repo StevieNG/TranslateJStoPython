@@ -6,6 +6,7 @@ A demo task to "translate" a program which convert .csv to .json from Java Scrip
 2) csv file to be loaded, arranged, and appended to two list: nodes and edges
 3) Create 2 json files (nodes and edges) with current time stamp as file name 
 
+**Approach:**
 intitially "data.py" was created as a python shell program to get the main functionalities to work
 then "dataFlask.py" was created to use Flask framwork to link the function to an user interface on a html file - "index.html"
 
