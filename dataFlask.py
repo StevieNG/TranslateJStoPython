@@ -1,14 +1,13 @@
 from flask import Flask, request, render_template
-
 import csv , json, time
 from collections import OrderedDict
 
-
+# ----Flask framework---
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-  return render_template('test.html')
+  return render_template('index.html')
 
 if __name__ == '__main__':
   app.run(debug=True)
@@ -17,10 +16,13 @@ if __name__ == '__main__':
 def my_form_post():
     text = request.form['text']
     processed_text = text.upper()
-    Clicked(text)
+    convertCSVtoJSON(text)
     return "CSV file: {} converted to json".format(processed_text)
 
-def Clicked(filename):
+# ---Flask Framework end------
+
+# ---function to load csv----
+def convertCSVtoJSON(filename):
     csvFilePath= filename
     
     arr = []
@@ -40,7 +42,7 @@ def Clicked(filename):
     csvObjectsToCollections(arr)
 
 
-    #----------------main funtion----------------------------------
+#--------Main funtion to arrange nodes and edges----------------
 def csvObjectsToCollections(obj):
     print("Show me the objects we passed to this function to check they're correct...")
     print('It should look like: {Level1: "A", Level2: "B", Level3: "C", Level4: "D", Level5: "E"}')
@@ -113,7 +115,7 @@ def csvObjectsToCollections(obj):
 
     # get current time for the file name
     currentTime= int(round(time.time(),0))
-    # print(currentTime)
+    
     
     # create file name path
     nodesFilePath = "{}_nodes_collection.json".format(currentTime)
