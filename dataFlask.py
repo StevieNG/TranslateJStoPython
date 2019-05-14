@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
-import csv , json, time
-from collections import OrderedDict
+import csv , json, time, collections
 
 # ----Flask framework---
 app = Flask(__name__)
@@ -26,7 +25,7 @@ def my_form_post():
 
 
 # ---fuction to check correct file type---
-ALLOWED_EXTENSIONS = ['csv']
+ALLOWED_EXTENSIONS = ['csv']    
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -92,25 +91,25 @@ def csvObjectsToCollections(obj):
         
         # append 4-5 relationship to edges.. then 3-4, 2-3,etc
         if( items.get("Level4") and items.get("Level5")):
-            edge_4_to_5 = OrderedDict();            
+            edge_4_to_5 = {};            
             edge_4_to_5["from"] = items.get("Level4")
             edge_4_to_5["to"] = items.get("Level5")
             edges.append(edge_4_to_5)
 
         if( items.get("Level3") and items.get("Level4")):
-            edge_3_to_4 = OrderedDict();            
+            edge_3_to_4 = {};            
             edge_3_to_4["from"] = items.get("Level3")
             edge_3_to_4["to"] = items.get("Level4")
             edges.append(edge_3_to_4)
 
         if( items.get("Level2") and items.get("Level3")):
-            edge_2_to_3 = OrderedDict();            
+            edge_2_to_3 = {};            
             edge_2_to_3["from"] = items.get("Level2")
             edge_2_to_3["to"] = items.get("Level3")
             edges.append(edge_2_to_3)
 
         if( items.get("Level1") and items.get("Level2")):
-            edge_1_to_2 = OrderedDict();            
+            edge_1_to_2 = {};            
             edge_1_to_2["from"] = items.get("Level1")
             edge_1_to_2["to"] = items.get("Level2")
             edges.append(edge_1_to_2)
