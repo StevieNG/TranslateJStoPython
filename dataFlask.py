@@ -53,7 +53,7 @@ def convertCSVtoJSON(filename):
     csvObjectsToCollections(arr)
 
 
-#--------Main funtion to arrange nodes and edges----------------
+#--------Main funtion to arrange nodes and edges----------
 def csvObjectsToCollections(obj):
     print("Show me the objects we passed to this function to check they're correct...")
     print('It should look like: {Level1: "A", Level2: "B", Level3: "C", Level4: "D", Level5: "E"}')
